@@ -3,14 +3,1550 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Redirecting...</title>
-  <meta http-equiv="refresh" content="0; url=./hamza_portfolio.html" />
-  <link rel="canonical" href="./hamza_portfolio.html" />
-  <script>
-    window.location.replace("./hamza_portfolio.html");
-  </script>
+  <title>Hamza Zniber | Cybersecurity Portfolio</title>
+  <style>
+    :root{
+      --bg:#050608;
+      --bg2:#0b0c10;
+      --panel:rgba(14,8,10,.78);
+      --panel2:rgba(20,10,13,.9);
+      --line:rgba(255,60,60,.18);
+      --text:#f5f7fb;
+      --muted:#a7acb8;
+      --red:#ff3c3c;
+      --red-dark:#8f1420;
+      --crimson:#d61f3f;
+      --blue:#4ea1ff;
+      --shadow:0 0 30px rgba(255,60,60,.16);
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:Inter,Segoe UI,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255,60,60,.10), transparent 20%),
+        radial-gradient(circle at 85% 10%, rgba(78,161,255,.08), transparent 20%),
+        radial-gradient(circle at 50% 100%, rgba(214,31,63,.18), transparent 30%),
+        linear-gradient(180deg,#030406 0%, #090b10 100%);
+      overflow-x:hidden;
+      cursor:none;
+    }
+
+    canvas#matrixCanvas{
+      position:fixed;
+      inset:0;
+      z-index:-3;
+      opacity:.22;
+    }
+
+    canvas#particles{
+      position:fixed;
+      inset:0;
+      z-index:-2;
+      opacity:.45;
+    }
+
+    .grid-overlay::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px);
+      background-size:44px 44px;
+      mask-image:linear-gradient(to bottom, rgba(0,0,0,.85), transparent);
+      pointer-events:none;
+      z-index:-1;
+    }
+
+    .scanlines::after{
+      content:"";
+      position:fixed;
+      inset:0;
+      background:linear-gradient(to bottom, transparent 0%, rgba(255,60,60,.03) 50%, transparent 100%);
+      background-size:100% 5px;
+      pointer-events:none;
+      animation:scan 8s linear infinite;
+      opacity:.22;
+      z-index:10;
+    }
+
+    @keyframes scan{
+      from{transform:translateY(-100%)}
+      to{transform:translateY(100%)}
+    }
+
+    .cursor-dot,.cursor-ring{
+      position:fixed;
+      top:0;
+      left:0;
+      pointer-events:none;
+      z-index:99999;
+      transform:translate(-50%,-50%);
+      border-radius:50%;
+    }
+
+    .cursor-dot{
+      width:8px;
+      height:8px;
+      background:var(--red);
+      box-shadow:0 0 14px rgba(255,60,60,.8);
+    }
+
+    .cursor-ring{
+      width:34px;
+      height:34px;
+      border:1px solid rgba(255,60,60,.55);
+      box-shadow:0 0 18px rgba(255,60,60,.18);
+      transition:width .18s,height .18s,border-color .18s,transform .08s;
+    }
+
+    .trail{
+      position:fixed;
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:rgba(255,60,60,.22);
+      pointer-events:none;
+      z-index:99998;
+      transform:translate(-50%,-50%);
+      animation:fadeTrail .6s linear forwards;
+    }
+
+    @keyframes fadeTrail{
+      to{opacity:0; transform:translate(-50%,-50%) scale(.2)}
+    }
+
+    .loading-screen{
+      position:fixed;
+      inset:0;
+      background:linear-gradient(180deg,#020204 0%, #08090d 100%);
+      z-index:9999;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:16px;
+      transition:opacity .8s ease, visibility .8s ease;
+    }
+
+    .loading-screen.hidden{
+      opacity:0;
+      visibility:hidden;
+    }
+
+    .loader-logo{
+      font-size:clamp(1.4rem,4vw,2.5rem);
+      font-weight:900;
+      letter-spacing:.28em;
+      color:var(--red);
+      text-shadow:0 0 18px rgba(255,60,60,.5);
+      animation:pulseGlow 1.5s ease-in-out infinite;
+    }
+
+    .loader-bar{
+      width:min(430px,82vw);
+      height:12px;
+      border-radius:999px;
+      overflow:hidden;
+      border:1px solid rgba(255,60,60,.25);
+      background:rgba(255,255,255,.04);
+    }
+
+    .loader-fill{
+      width:0%;
+      height:100%;
+      background:linear-gradient(90deg,var(--red),var(--blue));
+      box-shadow:0 0 24px rgba(255,60,60,.35);
+      animation:loadBar 3.2s ease forwards;
+    }
+
+    .loader-text{
+      color:var(--muted);
+      font-family:ui-monospace,monospace;
+      font-size:.92rem;
+    }
+
+    @keyframes loadBar{
+      0%{width:0%}
+      100%{width:100%}
+    }
+
+    @keyframes pulseGlow{
+      0%,100%{opacity:1;text-shadow:0 0 10px rgba(255,60,60,.4)}
+      50%{opacity:.8;text-shadow:0 0 24px rgba(255,60,60,.8)}
+    }
+
+    .intro-terminal{
+      position:fixed;
+      inset:0;
+      z-index:9998;
+      background:rgba(0,0,0,.95);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      transition:opacity .8s ease, visibility .8s ease;
+    }
+
+    .intro-terminal.hidden{
+      opacity:0;
+      visibility:hidden;
+      pointer-events:none;
+    }
+
+    .terminal-box{
+      width:min(920px,100%);
+      min-height:430px;
+      background:rgba(7,7,10,.94);
+      border:1px solid rgba(255,60,60,.16);
+      border-radius:18px;
+      box-shadow:0 0 40px rgba(255,60,60,.08);
+      overflow:hidden;
+    }
+
+    .terminal-head{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:14px 18px;
+      border-bottom:1px solid rgba(255,255,255,.06);
+      background:rgba(255,255,255,.02);
+    }
+
+    .dot{width:11px;height:11px;border-radius:50%}
+    .d1{background:#ff5f57}
+    .d2{background:#febc2e}
+    .d3{background:#28c840}
+
+    .terminal-body{
+      padding:22px;
+      font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+      color:var(--red);
+      line-height:1.8;
+      font-size:1rem;
+      white-space:pre-wrap;
+    }
+
+    .skip-btn{
+      margin-top:16px;
+      padding:12px 18px;
+      border-radius:12px;
+      background:rgba(255,60,60,.08);
+      border:1px solid rgba(255,60,60,.18);
+      color:var(--text);
+      cursor:pointer;
+      font-weight:700;
+      transition:.25s;
+    }
+
+    .skip-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+
+    nav{
+      position:sticky;
+      top:0;
+      z-index:100;
+      backdrop-filter:blur(12px);
+      background:rgba(4,5,8,.76);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+
+    .nav-inner{
+      max-width:1220px;
+      margin:auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:14px 20px;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+
+    .brand{
+      font-weight:900;
+      letter-spacing:.2em;
+      color:var(--red);
+      text-transform:uppercase;
+      text-shadow:0 0 12px rgba(255,60,60,.3);
+    }
+
+    .nav-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:16px;
+      align-items:center;
+    }
+
+    .nav-links a,.lang-btn{
+      color:var(--muted);
+      text-decoration:none;
+      transition:.25s;
+      font-size:.95rem;
+    }
+
+    .nav-links a:hover,.lang-btn:hover{color:var(--text)}
+
+    .lang-btn{
+      background:transparent;
+      border:1px solid rgba(255,255,255,.12);
+      padding:8px 12px;
+      border-radius:999px;
+      cursor:pointer;
+    }
+
+    .container{
+      max-width:1220px;
+      margin:auto;
+      padding:28px 20px 100px;
+      position:relative;
+      z-index:2;
+    }
+
+    .hero{
+      min-height:95vh;
+      display:grid;
+      grid-template-columns:1.08fr .92fr;
+      gap:28px;
+      align-items:center;
+      padding:30px 0 20px;
+    }
+
+    .hero-card,.side-card,.card,.timeline-item,.quote-box,.console-wrap{
+      background:var(--panel);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:22px;
+      backdrop-filter:blur(10px);
+      box-shadow:0 10px 40px rgba(0,0,0,.22);
+    }
+
+    .parallax{
+      transform:translateY(0);
+      transition:transform .08s linear;
+      will-change:transform;
+    }
+
+    .hero-card{
+      padding:26px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(120deg, transparent, rgba(255,255,255,.05), transparent);
+      transform:translateX(-100%);
+      animation:shine 6s linear infinite;
+    }
+
+    @keyframes shine{
+      to{transform:translateX(100%)}
+    }
+
+    .tag{
+      display:inline-block;
+      padding:8px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,60,60,.25);
+      color:var(--red);
+      font-size:.82rem;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      margin-bottom:16px;
+      background:rgba(255,60,60,.05);
+    }
+
+    h1{
+      font-size:clamp(2.8rem,7vw,6rem);
+      line-height:.92;
+      margin-bottom:12px;
+      letter-spacing:-.05em;
+    }
+
+    .accent{
+      background:linear-gradient(90deg,var(--red),var(--blue));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+
+    .glitch{
+      position:relative;
+      display:inline-block;
+    }
+
+    .glitch::before,
+    .glitch::after{
+      content:attr(data-text);
+      position:absolute;
+      left:0;
+      top:0;
+      width:100%;
+      overflow:hidden;
+    }
+
+    .glitch::before{
+      color:var(--blue);
+      transform:translate(2px,0);
+      opacity:.35;
+      clip-path:polygon(0 0,100% 0,100% 45%,0 45%);
+      animation:glitch1 2.4s infinite linear alternate-reverse;
+    }
+
+    .glitch::after{
+      color:var(--red);
+      transform:translate(-2px,0);
+      opacity:.45;
+      clip-path:polygon(0 60%,100% 60%,100% 100%,0 100%);
+      animation:glitch2 2.2s infinite linear alternate-reverse;
+    }
+
+    @keyframes glitch1{
+      0%{transform:translate(2px,0)}
+      25%{transform:translate(-2px,1px)}
+      50%{transform:translate(3px,-1px)}
+      100%{transform:translate(-1px,1px)}
+    }
+
+    @keyframes glitch2{
+      0%{transform:translate(-2px,0)}
+      25%{transform:translate(2px,-1px)}
+      50%{transform:translate(-3px,1px)}
+      100%{transform:translate(1px,-1px)}
+    }
+
+    .subtitle{
+      color:var(--muted);
+      font-size:1.08rem;
+      line-height:1.8;
+      max-width:740px;
+    }
+
+    .hero-cta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      margin-top:24px;
+    }
+
+    .btn{
+      text-decoration:none;
+      padding:13px 18px;
+      border-radius:14px;
+      font-weight:800;
+      transition:.25s;
+      border:1px solid rgba(255,255,255,.08);
+      position:relative;
+      overflow:hidden;
+      color:var(--text);
+    }
+
+    .btn:hover{transform:translateY(-3px) scale(1.02)}
+
+    .btn-primary{
+      background:linear-gradient(90deg, rgba(255,60,60,.18), rgba(78,161,255,.16));
+      box-shadow:var(--shadow);
+    }
+
+    .btn-secondary{
+      background:rgba(255,255,255,.03);
+    }
+
+    .side-card{
+      padding:24px;
+      background:linear-gradient(180deg, rgba(15,8,10,.82), rgba(10,10,14,.94));
+      position:relative;
+      overflow:hidden;
+    }
+
+    .side-card::after{
+      content:"";
+      position:absolute;
+      right:-40px;
+      top:-40px;
+      width:160px;
+      height:160px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(255,60,60,.22), transparent 70%);
+      filter:blur(10px);
+    }
+
+    .stat{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      padding:14px 0;
+      border-bottom:1px solid rgba(255,255,255,.06);
+      color:var(--muted);
+      font-size:.96rem;
+    }
+
+    .stat strong{
+      color:var(--text);
+      text-align:right;
+    }
+
+    .mono{font-family:ui-monospace,monospace}
+
+    section{padding:56px 0}
+
+    .section-title{
+      font-size:1.7rem;
+      margin-bottom:10px;
+    }
+
+    .section-sub{
+      color:var(--muted);
+      line-height:1.8;
+      max-width:770px;
+      margin-bottom:24px;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:18px;
+      perspective:1200px;
+    }
+
+    .card{
+      padding:22px;
+      transition:transform .15s ease, box-shadow .2s ease, border-color .2s ease;
+      position:relative;
+      overflow:hidden;
+      transform-style:preserve-3d;
+      will-change:transform;
+    }
+
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      border-radius:22px;
+      padding:1px;
+      background:linear-gradient(130deg, rgba(255,60,60,.35), transparent, rgba(78,161,255,.22));
+      -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+      -webkit-mask-composite:xor;
+      mask-composite:exclude;
+      pointer-events:none;
+      opacity:.4;
+    }
+
+    .card:hover{
+      box-shadow:0 0 28px rgba(255,60,60,.1);
+      border-color:rgba(255,60,60,.2);
+    }
+
+    .card h3{margin-bottom:10px}
+    .card p{color:var(--muted);line-height:1.8}
+
+    .chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:14px;
+    }
+
+    .chip{
+      padding:8px 10px;
+      border-radius:999px;
+      font-size:.84rem;
+      background:rgba(255,60,60,.06);
+      border:1px solid rgba(255,60,60,.15);
+      color:#ffe0e6;
+    }
+
+    .timeline{
+      display:grid;
+      gap:18px;
+    }
+
+    .timeline-item{
+      padding:20px;
+      border-left:3px solid var(--red);
+      border-radius:0 18px 18px 0;
+    }
+
+    .timeline-item h3{margin-bottom:6px}
+    .timeline-item span{color:var(--red);font-size:.92rem}
+    .timeline-item p{color:var(--muted);line-height:1.7;margin-top:10px}
+
+    .split{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+    }
+
+    .quote-box{
+      padding:24px;
+      background:rgba(255,60,60,.05);
+      border:1px solid rgba(255,60,60,.14);
+      font-size:1.18rem;
+      line-height:1.8;
+      color:#fff0f2;
+    }
+
+    .contact-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:18px;
+    }
+
+    .project-link{
+      color:var(--red);
+      text-decoration:none;
+      font-weight:700;
+    }
+
+    .lang-fr{display:none}
+
+    footer{
+      padding:24px 20px 40px;
+      border-top:1px solid rgba(255,255,255,.06);
+      text-align:center;
+      color:var(--muted);
+    }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(24px);
+      transition:all .8s ease;
+    }
+
+    .reveal.show{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    .console-wrap{
+      margin-top:22px;
+      overflow:hidden;
+    }
+
+    .console-head{
+      display:flex;
+      gap:8px;
+      padding:12px 16px;
+      border-bottom:1px solid rgba(255,255,255,.06);
+      background:rgba(255,255,255,.02);
+    }
+
+    .console-body{
+      padding:16px;
+      font-family:ui-monospace,monospace;
+      min-height:220px;
+      color:#ffd7dd;
+      background:rgba(0,0,0,.18);
+    }
+
+    .console-output{
+      white-space:pre-wrap;
+      line-height:1.7;
+      margin-bottom:12px;
+    }
+
+    .console-input-line{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:var(--red);
+    }
+
+    .console-input{
+      flex:1;
+      background:transparent;
+      border:none;
+      outline:none;
+      color:#fff;
+      font-family:ui-monospace,monospace;
+      font-size:1rem;
+      cursor:text;
+    }
+
+    .modal{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.76);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      z-index:10000;
+      opacity:0;
+      visibility:hidden;
+      transition:.25s;
+    }
+
+    .modal.show{
+      opacity:1;
+      visibility:visible;
+    }
+
+    .modal-content{
+      width:min(760px,100%);
+      background:linear-gradient(180deg, rgba(16,9,12,.96), rgba(8,8,12,.98));
+      border:1px solid rgba(255,60,60,.18);
+      border-radius:22px;
+      padding:24px;
+      box-shadow:0 0 40px rgba(255,60,60,.12);
+      position:relative;
+    }
+
+    .modal-close{
+      position:absolute;
+      top:14px;
+      right:14px;
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+      color:var(--text);
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      cursor:pointer;
+      font-size:1.1rem;
+    }
+
+    .modal-content h3{
+      margin-bottom:10px;
+      font-size:1.5rem;
+    }
+
+    .modal-content p{
+      color:var(--muted);
+      line-height:1.8;
+      margin-bottom:12px;
+    }
+
+    .open-modal{
+      margin-top:14px;
+      display:inline-block;
+      padding:10px 14px;
+      border-radius:12px;
+      border:1px solid rgba(255,60,60,.18);
+      color:var(--text);
+      background:rgba(255,60,60,.06);
+      text-decoration:none;
+      font-weight:700;
+    }
+
+    .profile-card{
+      padding:20px;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+      background:linear-gradient(180deg, rgba(15,8,10,.88), rgba(10,10,14,.96));
+    }
+
+    .profile-frame{
+      position:relative;
+      border-radius:24px;
+      padding:14px;
+      background:
+        linear-gradient(145deg, rgba(255,60,60,.18), rgba(78,161,255,.08)),
+        rgba(255,255,255,.02);
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow:
+        0 0 30px rgba(255,60,60,.10),
+        inset 0 1px 0 rgba(255,255,255,.05);
+      overflow:hidden;
+      transition:box-shadow .25s ease, transform .25s ease, border-color .25s ease;
+    }
+
+    .profile-photo-wrap{
+      position:relative;
+      border-radius:18px;
+      overflow:hidden;
+      min-height:500px;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.46)),
+        radial-gradient(circle at top, rgba(255,60,60,.08), transparent 42%),
+        #0b0c10;
+      border:1px solid rgba(255,255,255,.06);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .profile-photo{
+      width:100%;
+      height:100%;
+      max-height:700px;
+      object-fit:contain;
+      object-position:center center;
+      display:block;
+      filter:grayscale(100%) contrast(1.10) brightness(.88);
+      transform:scale(1.015);
+    }
+
+    .profile-placeholder{
+      display:none;
+      position:relative;
+      z-index:2;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      text-align:center;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:rgba(245,247,251,.9);
+      padding:24px;
+    }
+
+    .profile-placeholder span{
+      font-size:.78rem;
+      color:var(--muted);
+    }
+
+    .profile-placeholder strong{
+      font-size:1rem;
+    }
+
+    .profile-photo-wrap.is-placeholder .profile-placeholder{
+      display:flex;
+    }
+
+    .profile-photo-wrap::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(180deg, rgba(5,6,8,.02) 0%, rgba(5,6,8,.18) 32%, rgba(5,6,8,.42) 100%),
+        radial-gradient(circle at 50% 26%, transparent 0 20%, rgba(0,0,0,.18) 56%, rgba(0,0,0,.34) 100%);
+      pointer-events:none;
+      z-index:1;
+    }
+
+    .profile-photo-wrap::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(90deg, rgba(0,0,0,.28), transparent 24%, transparent 76%, rgba(0,0,0,.30)),
+        linear-gradient(180deg, rgba(255,60,60,.05), transparent 30%, transparent 70%, rgba(0,0,0,.22));
+      pointer-events:none;
+      z-index:1;
+    }
+
+    .profile-badge{
+      position:absolute;
+      left:16px;
+      bottom:16px;
+      z-index:2;
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(8,10,14,.84);
+      border:1px solid rgba(255,60,60,.22);
+      backdrop-filter:blur(10px);
+      color:var(--text);
+      font-size:.82rem;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      box-shadow:0 0 20px rgba(255,60,60,.10);
+    }
+
+    .profile-meta{
+      display:grid;
+      gap:12px;
+    }
+
+    .profile-line{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px 0;
+      border-bottom:1px solid rgba(255,255,255,.06);
+      color:var(--muted);
+      font-size:.96rem;
+    }
+
+    .profile-line strong{
+      color:var(--text);
+      text-align:right;
+    }
+
+    @media (hover:hover) and (pointer:fine){
+      .profile-frame:hover{
+        transform:translateY(-4px);
+        border-color:rgba(255,60,60,.18);
+        box-shadow:
+          0 0 36px rgba(255,60,60,.18),
+          0 0 80px rgba(255,60,60,.08),
+          inset 0 1px 0 rgba(255,255,255,.06);
+      }
+
+      .profile-frame:hover .profile-badge{
+        box-shadow:
+          0 0 22px rgba(255,60,60,.16),
+          0 0 40px rgba(255,60,60,.08);
+      }
+    }
+
+    @media (max-width:980px){
+      body{cursor:auto}
+      .cursor-dot,.cursor-ring{display:none}
+      .hero,.cards,.split,.contact-grid{
+        grid-template-columns:1fr;
+      }
+      .terminal-box{min-height:360px}
+      .profile-photo-wrap{min-height:360px}
+    }
+  </style>
 </head>
-<body>
-  <p>Redirecting to <a href="./hamza_portfolio.html">hamza_portfolio.html</a>...</p>
+<body class="grid-overlay scanlines">
+  <canvas id="matrixCanvas"></canvas>
+  <canvas id="particles"></canvas>
+
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loader-logo">HZ // RED MODE</div>
+    <div class="loader-bar"><div class="loader-fill"></div></div>
+    <div class="loader-text" id="loaderText">Initializing offensive visual layer...</div>
+  </div>
+
+  <div class="intro-terminal" id="introTerminal">
+    <div>
+      <div class="terminal-box">
+        <div class="terminal-head">
+          <span class="dot d1"></span>
+          <span class="dot d2"></span>
+          <span class="dot d3"></span>
+        </div>
+        <div class="terminal-body" id="terminalText"></div>
+      </div>
+      <button class="skip-btn" onclick="skipIntro()">Enter Portfolio</button>
+    </div>
+  </div>
+
+  <div class="modal" id="projectModal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()">×</button>
+      <h3 id="modalTitle">Project Title</h3>
+      <p id="modalDesc"></p>
+      <div class="chips" id="modalChips"></div>
+    </div>
+  </div>
+
+  <nav>
+    <div class="nav-inner">
+      <div class="brand">HZ // RED CYBER</div>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#console">Console</a>
+        <a href="#contact">Contact</a>
+        <button class="lang-btn" onclick="toggleLang()">FR / EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="hero reveal parallax" data-speed="0.18">
+      <div class="hero-card">
+        <div class="lang-en">
+          <div class="tag">IT Engineering Student • Cybersecurity Path</div>
+          <h1><span class="glitch" data-text="Hamza">Hamza</span> <span class="accent">Zniber</span></h1>
+          <p class="subtitle">
+            Third-year IT engineering student based in Casablanca, building a bold future in cybersecurity through
+            technical projects, problem-solving, and a deep interest in SOC operations, blue team workflows,
+            pentesting, cloud security, digital forensics, and network defense.
+          </p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#projects">Explore My Work</a>
+            <a class="btn btn-secondary" href="mailto:hamzazniber100@hotmail.com">Email Me</a>
+            <a class="btn btn-secondary" href="https://github.com/SileHam" target="_blank">GitHub</a>
+            <a class="btn btn-secondary" href="https://www.linkedin.com/in/hamza-zniber/" target="_blank">LinkedIn</a>
+          </div>
+        </div>
+
+        <div class="lang-fr">
+          <div class="tag">Étudiant ingénieur IT • Parcours cybersécurité</div>
+          <h1><span class="glitch" data-text="Hamza">Hamza</span> <span class="accent">Zniber</span></h1>
+          <p class="subtitle">
+            Étudiant en troisième année d’ingénierie informatique à Casablanca, en train de construire un futur ambitieux
+            dans la cybersécurité à travers des projets techniques, la résolution de problèmes complexes, et un fort intérêt
+            pour les opérations SOC, le blue team, le pentesting, la sécurité cloud, la forensique numérique et la défense réseau.
+          </p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#projects">Voir mes projets</a>
+            <a class="btn btn-secondary" href="mailto:hamzazniber100@hotmail.com">Me contacter</a>
+            <a class="btn btn-secondary" href="https://github.com/SileHam" target="_blank">GitHub</a>
+            <a class="btn btn-secondary" href="https://www.linkedin.com/in/hamza-zniber/" target="_blank">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="side-card profile-card">
+        <div class="profile-frame">
+          <div class="profile-photo-wrap">
+            <div class="profile-placeholder" aria-hidden="true">
+              <span>Profile Photo</span>
+              <strong>Unavailable</strong>
+            </div>
+            <img class="profile-photo" src="PDP.jpg" alt="Portrait of Hamza Zniber" onerror="this.remove(); this.parentElement.classList.add('is-placeholder');">
+            <div class="profile-badge">Cybersecurity Portfolio</div>
+          </div>
+        </div>
+
+        <div class="profile-meta">
+          <div class="profile-line"><span>Name</span><strong>Hamza Zniber</strong></div>
+          <div class="profile-line"><span>Location</span><strong>Casablanca, Morocco</strong></div>
+          <div class="profile-line"><span>School</span><strong>EMSI</strong></div>
+          <div class="profile-line"><span>Program</span><strong>IT Engineering</strong></div>
+          <div class="profile-line"><span>Year</span><strong>3rd Year</strong></div>
+          <div class="profile-line"><span>Graduation</span><strong>2028</strong></div>
+          <div class="profile-line"><span>Focus</span><strong>Cybersecurity</strong></div>
+          <div class="profile-line"><span>Email</span><strong class="mono">hamzazniber100@hotmail.com</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="reveal parallax" data-speed="0.12">
+      <h2 class="section-title lang-en">About Me</h2>
+      <h2 class="section-title lang-fr">À propos de moi</h2>
+
+      <p class="section-sub lang-en">
+        I chose IT engineering because I genuinely love technology and the challenge of understanding systems deeply.
+        Cybersecurity feels like the right space for me because it brings together logic, pressure, strategy, and defense.
+        I enjoy hard problems, especially ethical hacking, pentesting, and anything that forces me to think beyond obvious solutions.
+      </p>
+
+      <p class="section-sub lang-fr">
+        J’ai choisi l’ingénierie informatique parce que j’aime réellement la technologie et le défi de comprendre les systèmes en profondeur.
+        La cybersécurité est pour moi le bon domaine, car elle réunit logique, pression, stratégie et défense.
+        J’aime les problèmes difficiles, surtout le hacking éthique, le pentesting et tout ce qui m’oblige à réfléchir au-delà des solutions évidentes.
+      </p>
+
+      <div class="quote-box lang-en">
+        “I work hard, adapt fast, think differently, and bring leadership, teamwork, time management, and analytical thinking into every challenge.”
+      </div>
+
+      <div class="quote-box lang-fr">
+        « Je travaille dur, je m’adapte vite, je pense différemment, et j’apporte du leadership, de l’esprit d’équipe, de la gestion du temps et une vraie pensée analytique dans chaque défi. »
+      </div>
+    </section>
+
+    <section id="skills" class="reveal parallax" data-speed="0.10">
+      <h2 class="section-title lang-en">Technical Skills</h2>
+      <h2 class="section-title lang-fr">Compétences techniques</h2>
+
+      <div class="cards">
+        <div class="card tilt-card">
+          <h3 class="lang-en">Programming</h3>
+          <h3 class="lang-fr">Programmation</h3>
+          <div class="chips">
+            <span class="chip">PHP</span>
+            <span class="chip">SQL</span>
+            <span class="chip">T-SQL</span>
+            <span class="chip">C</span>
+            <span class="chip">C++</span>
+            <span class="chip">Java</span>
+            <span class="chip">JavaScript</span>
+            <span class="chip">Python</span>
+            <span class="chip">HTML</span>
+            <span class="chip">CSS</span>
+          </div>
+        </div>
+
+        <div class="card tilt-card">
+          <h3 class="lang-en">Cybersecurity Direction</h3>
+          <h3 class="lang-fr">Orientation cybersécurité</h3>
+          <p class="lang-en">
+            Exploring SOC, blue team operations, pentesting, cloud security, digital forensics,
+            application security, and network defense while building stronger hands-on capability.
+          </p>
+          <p class="lang-fr">
+            J’explore le SOC, le blue team, le pentesting, la sécurité cloud, la forensique numérique,
+            la sécurité applicative et la défense réseau tout en renforçant mes compétences pratiques.
+          </p>
+        </div>
+
+        <div class="card tilt-card">
+          <h3 class="lang-en">Core Strengths</h3>
+          <h3 class="lang-fr">Forces principales</h3>
+          <div class="chips">
+            <span class="chip">Leadership</span>
+            <span class="chip">Teamwork</span>
+            <span class="chip">Time Management</span>
+            <span class="chip">Analytical Thinking</span>
+            <span class="chip">Adaptability</span>
+            <span class="chip">Problem Solving</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="reveal parallax" data-speed="0.14">
+      <h2 class="section-title lang-en">Projects</h2>
+      <h2 class="section-title lang-fr">Projets</h2>
+
+      <p class="section-sub lang-en">
+        This page is designed to evolve with me. Click a project to open a real modal popup with details.
+      </p>
+
+      <p class="section-sub lang-fr">
+        Cette page est conçue pour évoluer avec moi. Clique sur un projet pour ouvrir une vraie fenêtre popup avec les détails.
+      </p>
+
+      <div class="cards">
+        <div class="card tilt-card">
+          <h3>Gestion de Bibliothèque</h3>
+          <p class="lang-en">
+            Academic project focused on building a library management system using PHP, Symfony, and C.
+          </p>
+          <p class="lang-fr">
+            Projet académique centré sur la création d’un système de gestion de bibliothèque avec PHP, Symfony et C.
+          </p>
+          <div class="chips">
+            <span class="chip">PHP</span>
+            <span class="chip">Symfony</span>
+            <span class="chip">C</span>
+            <span class="chip">Backend</span>
+          </div>
+          <a href="#" class="open-modal" onclick="openProject('Gestion de Bibliothèque', 'A library management project built to handle organization, records, and backend structure using PHP, Symfony, and C. This project helped strengthen your ability to think in terms of system structure, logic flow, and data handling. Later, you can expand this modal with screenshots, GitHub links, features, and technical architecture.', ['PHP','Symfony','C','Backend Logic','Academic Project']); return false;">Open Project</a>
+        </div>
+
+        <div class="card tilt-card">
+          <h3 class="lang-en">Cyber Labs — Next Stage</h3>
+          <h3 class="lang-fr">Labs cyber — prochaine étape</h3>
+          <p class="lang-en">
+            Planned space for TryHackMe, Hack The Box, Linux, recon workflows, vulnerability analysis, and defensive labs.
+          </p>
+          <p class="lang-fr">
+            Espace prévu pour TryHackMe, Hack The Box, Linux, recon, analyse de vulnérabilités et labs défensifs.
+          </p>
+          <div class="chips">
+            <span class="chip">CTF</span>
+            <span class="chip">Linux</span>
+            <span class="chip">Recon</span>
+            <span class="chip">Automation</span>
+          </div>
+          <a href="#" class="open-modal" onclick="openProject('Cyber Labs', 'This section is reserved for your future cybersecurity hands-on work: TryHackMe rooms, Hack The Box labs, network enumeration, Linux privilege escalation, scanning workflows, and automation scripts. Once you complete them, each lab can become its own modal project card.', ['TryHackMe','Hack The Box','Linux','Recon','Blue Team']); return false;">Open Project</a>
+        </div>
+
+        <div class="card tilt-card">
+          <h3 class="lang-en">Security Writeups</h3>
+          <h3 class="lang-fr">Writeups sécurité</h3>
+          <p class="lang-en">
+            Future section for writeups, exploit breakdowns, technical notes, and lessons from security practice.
+          </p>
+          <p class="lang-fr">
+            Future section pour les writeups, analyses d’exploits, notes techniques et leçons de pratique sécurité.
+          </p>
+          <div class="chips">
+            <span class="chip">Writeups</span>
+            <span class="chip">Research</span>
+            <span class="chip">Blog</span>
+            <span class="chip">Learning Path</span>
+          </div>
+          <a href="#" class="open-modal" onclick="openProject('Security Writeups', 'A future hub for your security knowledge. Use it for CTF writeups, vulnerability analysis, reverse engineering notes, defensive insights, and short articles that show how you think through technical problems. This will make your portfolio much stronger for recruiters and internship applications.', ['Writeups','Research','Blog','Security Notes']); return false;">Open Project</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="console" class="reveal parallax" data-speed="0.09">
+      <h2 class="section-title lang-en">Command Console</h2>
+      <h2 class="section-title lang-fr">Console de commandes</h2>
+
+      <div class="console-wrap">
+        <div class="console-head">
+          <span class="dot d1"></span>
+          <span class="dot d2"></span>
+          <span class="dot d3"></span>
+        </div>
+        <div class="console-body">
+          <div class="console-output" id="consoleOutput">Type <strong>help</strong> to explore commands.</div>
+          <div class="console-input-line">
+            <span>hamza@portfolio:~$</span>
+            <input id="consoleInput" class="console-input" type="text" autocomplete="off" spellcheck="false" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="certifications" class="reveal parallax" data-speed="0.11">
+      <h2 class="section-title lang-en">Certifications</h2>
+      <h2 class="section-title lang-fr">Certifications</h2>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <h3>Introduction à la programmation orientée objet (en C++) — EPFL</h3>
+          <span>Issued Dec 2025 • Credential ID: E4AC9MM87BDW</span>
+        </div>
+        <div class="timeline-item">
+          <h3>JavaScript, jQuery, and JSON — University of Michigan</h3>
+          <span>Issued Dec 2025 • Credential ID: 9CICCCM0WZZT</span>
+        </div>
+        <div class="timeline-item">
+          <h3>The Foundations of Cybersecurity — Kennesaw State University</h3>
+          <span>Issued Mar 2026 • Credential ID: BMIMCLU0WZEO</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal parallax" data-speed="0.08">
+      <div class="split">
+        <div class="card tilt-card">
+          <h2 class="section-title lang-en">What I’m Building Toward</h2>
+          <h2 class="section-title lang-fr">Ce que je vise</h2>
+          <p class="section-sub lang-en">
+            I want this portfolio to help me access internships, freelance opportunities, jobs,
+            networking, and future academic growth. My goal is to connect strong software foundations
+            with real cybersecurity capability.
+          </p>
+          <p class="section-sub lang-fr">
+            Je veux que ce portfolio m’aide à accéder à des stages, à des opportunités freelance,
+            à des emplois, au networking et à une progression académique future.
+          </p>
+        </div>
+
+        <div class="card tilt-card">
+          <h2 class="section-title lang-en">Extras</h2>
+          <h2 class="section-title lang-fr">Extras</h2>
+          <div class="chips">
+            <span class="chip">About</span>
+            <span class="chip">Skills</span>
+            <span class="chip">Projects</span>
+            <span class="chip">Certifications</span>
+            <span class="chip">Experience</span>
+            <span class="chip">Blog</span>
+            <span class="chip">CTF Writeups</span>
+            <span class="chip">Resume Download</span>
+            <span class="chip">Testimonials</span>
+            <span class="chip">Languages</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="reveal parallax" data-speed="0.12">
+      <h2 class="section-title lang-en">Contact</h2>
+      <h2 class="section-title lang-fr">Contact</h2>
+
+      <div class="contact-grid">
+        <div class="card tilt-card">
+          <h3>Email</h3>
+          <p><a class="project-link" href="mailto:hamzazniber100@hotmail.com">hamzazniber100@hotmail.com</a></p>
+        </div>
+        <div class="card tilt-card">
+          <h3>LinkedIn</h3>
+          <p><a class="project-link" href="https://www.linkedin.com/in/hamza-zniber/" target="_blank">hamza-zniber</a></p>
+        </div>
+        <div class="card tilt-card">
+          <h3>GitHub</h3>
+          <p><a class="project-link" href="https://github.com/SileHam" target="_blank">SileHam</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer></footer>
+
+  <script>
+    let french = false;
+    function toggleLang(){
+      french = !french;
+      document.querySelectorAll('.lang-en').forEach(el => el.style.display = french ? 'none' : '');
+      document.querySelectorAll('.lang-fr').forEach(el => el.style.display = french ? '' : 'none');
+    }
+
+    const terminalLines = [
+      "[BOOT] Initializing red interface...",
+      "[SYS] Loading encrypted identity modules...",
+      "[OK] User detected: Hamza Zniber",
+      "[OK] Role detected: IT Engineering Student",
+      "[OK] Target path: Cybersecurity",
+      "[OK] Matrix rain activated...",
+      "[OK] Cursor trail engaged...",
+      "[OK] Command console online...",
+      "[ACCESS GRANTED] Welcome to the portfolio."
+    ];
+
+    let lineIndex = 0;
+    const terminalText = document.getElementById("terminalText");
+
+    function typeTerminalLine() {
+      if (lineIndex >= terminalLines.length) return;
+      const line = terminalLines[lineIndex];
+      let charIndex = 0;
+      const p = document.createElement("div");
+      terminalText.appendChild(p);
+
+      const typer = setInterval(() => {
+        p.textContent += line.charAt(charIndex);
+        charIndex++;
+        if (charIndex >= line.length) {
+          clearInterval(typer);
+          lineIndex++;
+          setTimeout(typeTerminalLine, 220);
+        }
+      }, 24);
+    }
+
+    function skipIntro(){
+      document.getElementById("introTerminal").classList.add("hidden");
+    }
+
+    window.addEventListener("load", () => {
+      const loaderTexts = [
+        "Initializing offensive visual layer...",
+        "Injecting matrix module...",
+        "Booting terminal interface...",
+        "Activating red cyber shell..."
+      ];
+      let i = 0;
+      const loaderText = document.getElementById("loaderText");
+      const textInterval = setInterval(() => {
+        i = (i + 1) % loaderTexts.length;
+        loaderText.textContent = loaderTexts[i];
+      }, 700);
+
+      setTimeout(() => {
+        clearInterval(textInterval);
+        document.getElementById("loadingScreen").classList.add("hidden");
+        typeTerminalLine();
+      }, 3400);
+
+      setTimeout(() => {
+        document.getElementById("introTerminal").classList.add("hidden");
+      }, 8200);
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add("show");
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    function openProject(title, desc, chips){
+      document.getElementById('modalTitle').textContent = title;
+      document.getElementById('modalDesc').textContent = desc;
+      const chipsWrap = document.getElementById('modalChips');
+      chipsWrap.innerHTML = '';
+      chips.forEach(ch => {
+        const span = document.createElement('span');
+        span.className = 'chip';
+        span.textContent = ch;
+        chipsWrap.appendChild(span);
+      });
+      document.getElementById('projectModal').classList.add('show');
+    }
+
+    function closeModal(){
+      document.getElementById('projectModal').classList.remove('show');
+    }
+
+    document.getElementById('projectModal').addEventListener('click', (e) => {
+      if(e.target.id === 'projectModal') closeModal();
+    });
+
+    const consoleInput = document.getElementById('consoleInput');
+    const consoleOutput = document.getElementById('consoleOutput');
+
+    function appendConsole(text){
+      consoleOutput.innerHTML += "\\n" + text;
+      consoleOutput.scrollTop = consoleOutput.scrollHeight;
+    }
+
+    consoleInput.addEventListener('keydown', function(e){
+      if(e.key === 'Enter'){
+        const cmd = this.value.trim().toLowerCase();
+        appendConsole("\\n> " + cmd);
+
+        if(cmd === 'help'){
+          appendConsole("Available commands:\\n- help\\n- cv\\n- projects\\n- contact\\n- clear");
+        } else if(cmd === 'cv'){
+          appendConsole("CV module ready. Replace this with your CV PDF link later.");
+        } else if(cmd === 'projects'){
+          appendConsole("Projects:\\n1. Gestion de Bibliothèque\\n2. Cyber Labs\\n3. Security Writeups");
+          document.getElementById('projects').scrollIntoView({behavior:'smooth'});
+        } else if(cmd === 'contact'){
+          appendConsole("Email: hamzazniber100@hotmail.com\\nGitHub: github.com/SileHam\\nLinkedIn: linkedin.com/in/hamza-zniber");
+          document.getElementById('contact').scrollIntoView({behavior:'smooth'});
+        } else if(cmd === 'clear'){
+          consoleOutput.innerHTML = "Type <strong>help</strong> to explore commands.";
+        } else if(cmd){
+          appendConsole("Command not found. Type help.");
+        }
+
+        this.value = '';
+      }
+    });
+
+    const cards = document.querySelectorAll('.tilt-card');
+    cards.forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const midX = rect.width / 2;
+        const midY = rect.height / 2;
+        const rotateX = ((y - midY) / midY) * -8;
+        const rotateY = ((x - midX) / midX) * 8;
+        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'rotateX(0deg) rotateY(0deg) translateY(0)';
+      });
+    });
+
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      document.querySelectorAll('.parallax').forEach(el => {
+        const speed = parseFloat(el.dataset.speed || 0.1);
+        el.style.transform = `translateY(${scrollY * speed * -0.15}px)`;
+      });
+    });
+
+    const cursorDot = document.getElementById('cursorDot');
+    const cursorRing = document.getElementById('cursorRing');
+    let ringX = window.innerWidth / 2, ringY = window.innerHeight / 2;
+    let mouseX = ringX, mouseY = ringY;
+
+    window.addEventListener('mousemove', e => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursorDot.style.left = mouseX + 'px';
+      cursorDot.style.top = mouseY + 'px';
+
+      const trail = document.createElement('div');
+      trail.className = 'trail';
+      trail.style.left = mouseX + 'px';
+      trail.style.top = mouseY + 'px';
+      document.body.appendChild(trail);
+      setTimeout(() => trail.remove(), 600);
+    });
+
+    function animateCursor(){
+      ringX += (mouseX - ringX) * 0.16;
+      ringY += (mouseY - ringY) * 0.16;
+      cursorRing.style.left = ringX + 'px';
+      cursorRing.style.top = ringY + 'px';
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    document.querySelectorAll('a, button, .card, .console-input').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursorRing.style.width = '48px';
+        cursorRing.style.height = '48px';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursorRing.style.width = '34px';
+        cursorRing.style.height = '34px';
+      });
+    });
+
+    const matrixCanvas = document.getElementById("matrixCanvas");
+    const mtx = matrixCanvas.getContext("2d");
+    let drops = [];
+    let fontSize = 16;
+    const letters = "01{}[]<>$#@/\\|ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    function resizeMatrix(){
+      matrixCanvas.width = window.innerWidth;
+      matrixCanvas.height = window.innerHeight;
+      const columns = Math.floor(matrixCanvas.width / fontSize);
+      drops = Array(columns).fill(1);
+    }
+
+    function drawMatrix(){
+      mtx.fillStyle = "rgba(3,4,6,0.08)";
+      mtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+      mtx.fillStyle = "#ff3c3c";
+      mtx.font = fontSize + "px monospace";
+
+      for(let i = 0; i < drops.length; i++){
+        const text = letters[Math.floor(Math.random() * letters.length)];
+        mtx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if(drops[i] * fontSize > matrixCanvas.height && Math.random() > 0.975){
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+
+    resizeMatrix();
+    setInterval(drawMatrix, 60);
+
+    const pCanvas = document.getElementById("particles");
+    const ctx = pCanvas.getContext("2d");
+    let particles = [];
+
+    function resizeParticles(){
+      pCanvas.width = window.innerWidth;
+      pCanvas.height = window.innerHeight;
+    }
+
+    function createParticles(){
+      particles = [];
+      const count = Math.floor(window.innerWidth / 16);
+      for(let i=0;i<count;i++){
+        particles.push({
+          x: Math.random() * pCanvas.width,
+          y: Math.random() * pCanvas.height,
+          r: Math.random() * 2 + 0.5,
+          dx: (Math.random() - 0.5) * 0.28,
+          dy: (Math.random() - 0.5) * 0.28,
+          a: Math.random() * 0.45 + 0.12
+        });
+      }
+    }
+
+    function animateParticles(){
+      ctx.clearRect(0,0,pCanvas.width,pCanvas.height);
+      for(const p of particles){
+        p.x += p.dx;
+        p.y += p.dy;
+
+        if(p.x < 0 || p.x > pCanvas.width) p.dx *= -1;
+        if(p.y < 0 || p.y > pCanvas.height) p.dy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle = `rgba(255,60,60,${p.a})`;
+        ctx.fill();
+      }
+
+      for(let i=0;i<particles.length;i++){
+        for(let j=i+1;j<particles.length;j++){
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx*dx + dy*dy);
+          if(dist < 110){
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(78,161,255,${0.06 - dist/2200})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(animateParticles);
+    }
+
+    resizeParticles();
+    createParticles();
+    animateParticles();
+
+    window.addEventListener("resize", () => {
+      resizeMatrix();
+      resizeParticles();
+      createParticles();
+    });
+  </script>
 </body>
 </html>
