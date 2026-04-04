@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -279,22 +279,15 @@
       align-items:center;
     }
 
-    .nav-links a,.lang-btn{
+    .nav-links a{
       color:var(--muted);
       text-decoration:none;
       transition:.25s;
       font-size:.95rem;
+      white-space:nowrap;
     }
 
-    .nav-links a:hover,.lang-btn:hover{color:var(--text)}
-
-    .lang-btn{
-      background:transparent;
-      border:1px solid rgba(255,255,255,.12);
-      padding:8px 12px;
-      border-radius:999px;
-      cursor:pointer;
-    }
+    .nav-links a:hover{color:var(--text)}
 
     .container{
       max-width:1220px;
@@ -441,8 +434,10 @@
       position:relative;
       overflow:hidden;
       color:var(--text);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
     }
-
     .btn:hover{transform:translateY(-3px) scale(1.02)}
 
     .btn-primary{
@@ -602,7 +597,6 @@
       font-weight:700;
     }
 
-    .lang-fr{display:none}
 
     footer{
       padding:24px 20px 40px;
@@ -889,11 +883,136 @@
     @media (max-width:980px){
       body{cursor:auto}
       .cursor-dot,.cursor-ring{display:none}
+      .nav-inner{
+        align-items:flex-start;
+      }
+      .nav-links{
+        width:100%;
+        justify-content:space-between;
+        gap:12px;
+      }
       .hero,.cards,.split,.contact-grid{
         grid-template-columns:1fr;
       }
+      .hero{
+        min-height:auto;
+      }
+      .hero-cta .btn{
+        flex:1 1 calc(50% - 7px);
+      }
       .terminal-box{min-height:360px}
       .profile-photo-wrap{min-height:360px}
+      .console-input-line{
+        flex-wrap:wrap;
+      }
+    }
+
+    @media (max-width:640px){
+      .container{
+        padding:20px 14px 72px;
+      }
+      .nav-inner{
+        padding:12px 14px;
+      }
+      .brand{
+        font-size:.88rem;
+        letter-spacing:.14em;
+      }
+      .nav-links{
+        width:100%;
+        flex-wrap:nowrap;
+        overflow-x:auto;
+        padding-bottom:4px;
+        scrollbar-width:none;
+      }
+      .nav-links::-webkit-scrollbar{
+        display:none;
+      }
+      .nav-links a{
+        font-size:.88rem;
+      }
+      .hero{
+        gap:18px;
+        padding:10px 0 0;
+      }
+      .hero-card,
+      .profile-card,
+      .card,
+      .timeline-item,
+      .quote-box,
+      .console-wrap,
+      .modal-content{
+        border-radius:18px;
+      }
+      .hero-card,
+      .profile-card,
+      .card,
+      .timeline-item,
+      .quote-box,
+      .modal-content{
+        padding:18px;
+      }
+      .tag{
+        font-size:.76rem;
+        margin-bottom:12px;
+      }
+      .subtitle,
+      .section-sub,
+      .card p,
+      .timeline-item p,
+      .modal-content p{
+        font-size:.98rem;
+      }
+      .section-title{
+        font-size:1.4rem;
+      }
+      .hero-cta{
+        gap:10px;
+      }
+      .hero-cta .btn{
+        width:100%;
+        flex-basis:100%;
+      }
+      .profile-frame{
+        padding:10px;
+      }
+      .profile-photo-wrap{
+        min-height:300px;
+      }
+      .profile-badge{
+        left:12px;
+        right:12px;
+        bottom:12px;
+        text-align:center;
+      }
+      .profile-line{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+      .profile-line strong{
+        text-align:left;
+      }
+      .console-body{
+        min-height:190px;
+        padding:14px;
+      }
+      .console-input-line{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+      .console-input{
+        width:100%;
+      }
+      .modal{
+        padding:12px;
+      }
+      .modal-content{
+        width:100%;
+      }
+      .modal-close{
+        top:10px;
+        right:10px;
+      }
     }
   </style>
 </head>
@@ -926,7 +1045,7 @@
 
   <div class="modal" id="projectModal">
     <div class="modal-content">
-      <button class="modal-close" onclick="closeModal()">×</button>
+      <button class="modal-close" onclick="closeModal()">&times;</button>
       <h3 id="modalTitle">Project Title</h3>
       <p id="modalDesc"></p>
       <div class="chips" id="modalChips"></div>
@@ -942,7 +1061,6 @@
         <a href="#projects">Projects</a>
         <a href="#console">Console</a>
         <a href="#contact">Contact</a>
-        <button class="lang-btn" onclick="toggleLang()">FR / EN</button>
       </div>
     </div>
   </nav>
@@ -950,36 +1068,18 @@
   <main class="container">
     <section class="hero reveal parallax" data-speed="0.18">
       <div class="hero-card">
-        <div class="lang-en">
-          <div class="tag">IT Engineering Student • Cybersecurity Path</div>
-          <h1><span class="glitch" data-text="Hamza">Hamza</span> <span class="accent">Zniber</span></h1>
-          <p class="subtitle">
-            Third-year IT engineering student based in Casablanca, building a bold future in cybersecurity through
-            technical projects, problem-solving, and a deep interest in SOC operations, blue team workflows,
-            pentesting, cloud security, digital forensics, and network defense.
-          </p>
-          <div class="hero-cta">
-            <a class="btn btn-primary" href="#projects">Explore My Work</a>
-            <a class="btn btn-secondary" href="mailto:hamzazniber100@hotmail.com">Email Me</a>
-            <a class="btn btn-secondary" href="https://github.com/SileHam" target="_blank">GitHub</a>
-            <a class="btn btn-secondary" href="https://www.linkedin.com/in/hamza-zniber/" target="_blank">LinkedIn</a>
-          </div>
-        </div>
-
-        <div class="lang-fr">
-          <div class="tag">Étudiant ingénieur IT • Parcours cybersécurité</div>
-          <h1><span class="glitch" data-text="Hamza">Hamza</span> <span class="accent">Zniber</span></h1>
-          <p class="subtitle">
-            Étudiant en troisième année d’ingénierie informatique à Casablanca, en train de construire un futur ambitieux
-            dans la cybersécurité à travers des projets techniques, la résolution de problèmes complexes, et un fort intérêt
-            pour les opérations SOC, le blue team, le pentesting, la sécurité cloud, la forensique numérique et la défense réseau.
-          </p>
-          <div class="hero-cta">
-            <a class="btn btn-primary" href="#projects">Voir mes projets</a>
-            <a class="btn btn-secondary" href="mailto:hamzazniber100@hotmail.com">Me contacter</a>
-            <a class="btn btn-secondary" href="https://github.com/SileHam" target="_blank">GitHub</a>
-            <a class="btn btn-secondary" href="https://www.linkedin.com/in/hamza-zniber/" target="_blank">LinkedIn</a>
-          </div>
+        <div class="tag">IT Engineering Student | Cybersecurity Path</div>
+        <h1><span class="glitch" data-text="Hamza">Hamza</span> <span class="accent">Zniber</span></h1>
+        <p class="subtitle">
+          Third-year IT engineering student based in Casablanca, building a bold future in cybersecurity through
+          technical projects, problem-solving, and a deep interest in SOC operations, blue team workflows,
+          pentesting, cloud security, digital forensics, and network defense.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#projects">Explore My Work</a>
+          <a class="btn btn-secondary" href="mailto:hamzazniber100@hotmail.com">Email Me</a>
+          <a class="btn btn-secondary" href="https://github.com/SileHam" target="_blank">GitHub</a>
+          <a class="btn btn-secondary" href="https://www.linkedin.com/in/hamza-zniber/" target="_blank">LinkedIn</a>
         </div>
       </div>
 
@@ -1009,38 +1109,25 @@
     </section>
 
     <section id="about" class="reveal parallax" data-speed="0.12">
-      <h2 class="section-title lang-en">About Me</h2>
-      <h2 class="section-title lang-fr">À propos de moi</h2>
+      <h2 class="section-title">About Me</h2>
 
-      <p class="section-sub lang-en">
+      <p class="section-sub">
         I chose IT engineering because I genuinely love technology and the challenge of understanding systems deeply.
         Cybersecurity feels like the right space for me because it brings together logic, pressure, strategy, and defense.
         I enjoy hard problems, especially ethical hacking, pentesting, and anything that forces me to think beyond obvious solutions.
       </p>
 
-      <p class="section-sub lang-fr">
-        J’ai choisi l’ingénierie informatique parce que j’aime réellement la technologie et le défi de comprendre les systèmes en profondeur.
-        La cybersécurité est pour moi le bon domaine, car elle réunit logique, pression, stratégie et défense.
-        J’aime les problèmes difficiles, surtout le hacking éthique, le pentesting et tout ce qui m’oblige à réfléchir au-delà des solutions évidentes.
-      </p>
-
-      <div class="quote-box lang-en">
-        “I work hard, adapt fast, think differently, and bring leadership, teamwork, time management, and analytical thinking into every challenge.”
-      </div>
-
-      <div class="quote-box lang-fr">
-        « Je travaille dur, je m’adapte vite, je pense différemment, et j’apporte du leadership, de l’esprit d’équipe, de la gestion du temps et une vraie pensée analytique dans chaque défi. »
+      <div class="quote-box">
+        "I work hard, adapt fast, think differently, and bring leadership, teamwork, time management, and analytical thinking into every challenge."
       </div>
     </section>
 
     <section id="skills" class="reveal parallax" data-speed="0.10">
-      <h2 class="section-title lang-en">Technical Skills</h2>
-      <h2 class="section-title lang-fr">Compétences techniques</h2>
+      <h2 class="section-title">Technical Skills</h2>
 
       <div class="cards">
         <div class="card tilt-card">
-          <h3 class="lang-en">Programming</h3>
-          <h3 class="lang-fr">Programmation</h3>
+          <h3>Programming</h3>
           <div class="chips">
             <span class="chip">PHP</span>
             <span class="chip">SQL</span>
@@ -1056,21 +1143,15 @@
         </div>
 
         <div class="card tilt-card">
-          <h3 class="lang-en">Cybersecurity Direction</h3>
-          <h3 class="lang-fr">Orientation cybersécurité</h3>
-          <p class="lang-en">
+          <h3>Cybersecurity Focus</h3>
+          <p>
             Exploring SOC, blue team operations, pentesting, cloud security, digital forensics,
             application security, and network defense while building stronger hands-on capability.
-          </p>
-          <p class="lang-fr">
-            J’explore le SOC, le blue team, le pentesting, la sécurité cloud, la forensique numérique,
-            la sécurité applicative et la défense réseau tout en renforçant mes compétences pratiques.
           </p>
         </div>
 
         <div class="card tilt-card">
-          <h3 class="lang-en">Core Strengths</h3>
-          <h3 class="lang-fr">Forces principales</h3>
+          <h3>Core Strengths</h3>
           <div class="chips">
             <span class="chip">Leadership</span>
             <span class="chip">Teamwork</span>
@@ -1084,25 +1165,17 @@
     </section>
 
     <section id="projects" class="reveal parallax" data-speed="0.14">
-      <h2 class="section-title lang-en">Projects</h2>
-      <h2 class="section-title lang-fr">Projets</h2>
+      <h2 class="section-title">Projects</h2>
 
-      <p class="section-sub lang-en">
+      <p class="section-sub">
         This page is designed to evolve with me. Click a project to open a real modal popup with details.
-      </p>
-
-      <p class="section-sub lang-fr">
-        Cette page est conçue pour évoluer avec moi. Clique sur un projet pour ouvrir une vraie fenêtre popup avec les détails.
       </p>
 
       <div class="cards">
         <div class="card tilt-card">
-          <h3>Gestion de Bibliothèque</h3>
-          <p class="lang-en">
+          <h3>Library Management System</h3>
+          <p>
             Academic project focused on building a library management system using PHP, Symfony, and C.
-          </p>
-          <p class="lang-fr">
-            Projet académique centré sur la création d’un système de gestion de bibliothèque avec PHP, Symfony et C.
           </p>
           <div class="chips">
             <span class="chip">PHP</span>
@@ -1110,17 +1183,13 @@
             <span class="chip">C</span>
             <span class="chip">Backend</span>
           </div>
-          <a href="#" class="open-modal" onclick="openProject('Gestion de Bibliothèque', 'A library management project built to handle organization, records, and backend structure using PHP, Symfony, and C. This project helped strengthen your ability to think in terms of system structure, logic flow, and data handling. Later, you can expand this modal with screenshots, GitHub links, features, and technical architecture.', ['PHP','Symfony','C','Backend Logic','Academic Project']); return false;">Open Project</a>
+          <a href="#" class="open-modal" onclick="openProject('Library Management System', 'A library management project built to handle organization, records, and backend structure using PHP, Symfony, and C. This project strengthened system design, logic flow, and data handling skills. It can later be expanded with screenshots, GitHub links, features, and technical architecture.', ['PHP','Symfony','C','Backend Logic','Academic Project']); return false;">Open Project</a>
         </div>
 
         <div class="card tilt-card">
-          <h3 class="lang-en">Cyber Labs — Next Stage</h3>
-          <h3 class="lang-fr">Labs cyber — prochaine étape</h3>
-          <p class="lang-en">
+          <h3>Cyber Labs - Next Stage</h3>
+          <p>
             Planned space for TryHackMe, Hack The Box, Linux, recon workflows, vulnerability analysis, and defensive labs.
-          </p>
-          <p class="lang-fr">
-            Espace prévu pour TryHackMe, Hack The Box, Linux, recon, analyse de vulnérabilités et labs défensifs.
           </p>
           <div class="chips">
             <span class="chip">CTF</span>
@@ -1132,13 +1201,9 @@
         </div>
 
         <div class="card tilt-card">
-          <h3 class="lang-en">Security Writeups</h3>
-          <h3 class="lang-fr">Writeups sécurité</h3>
-          <p class="lang-en">
+          <h3>Security Writeups</h3>
+          <p>
             Future section for writeups, exploit breakdowns, technical notes, and lessons from security practice.
-          </p>
-          <p class="lang-fr">
-            Future section pour les writeups, analyses d’exploits, notes techniques et leçons de pratique sécurité.
           </p>
           <div class="chips">
             <span class="chip">Writeups</span>
@@ -1152,8 +1217,7 @@
     </section>
 
     <section id="console" class="reveal parallax" data-speed="0.09">
-      <h2 class="section-title lang-en">Command Console</h2>
-      <h2 class="section-title lang-fr">Console de commandes</h2>
+      <h2 class="section-title">Command Console</h2>
 
       <div class="console-wrap">
         <div class="console-head">
@@ -1172,21 +1236,20 @@
     </section>
 
     <section id="certifications" class="reveal parallax" data-speed="0.11">
-      <h2 class="section-title lang-en">Certifications</h2>
-      <h2 class="section-title lang-fr">Certifications</h2>
+      <h2 class="section-title">Certifications</h2>
 
       <div class="timeline">
         <div class="timeline-item">
-          <h3>Introduction à la programmation orientée objet (en C++) — EPFL</h3>
-          <span>Issued Dec 2025 • Credential ID: E4AC9MM87BDW</span>
+          <h3>Object-Oriented Programming in C++ - EPFL</h3>
+          <span>Issued Dec 2025 | Credential ID: E4AC9MM87BDW</span>
         </div>
         <div class="timeline-item">
-          <h3>JavaScript, jQuery, and JSON — University of Michigan</h3>
-          <span>Issued Dec 2025 • Credential ID: 9CICCCM0WZZT</span>
+          <h3>JavaScript, jQuery, and JSON - University of Michigan</h3>
+          <span>Issued Dec 2025 | Credential ID: 9CICCCM0WZZT</span>
         </div>
         <div class="timeline-item">
-          <h3>The Foundations of Cybersecurity — Kennesaw State University</h3>
-          <span>Issued Mar 2026 • Credential ID: BMIMCLU0WZEO</span>
+          <h3>The Foundations of Cybersecurity - Kennesaw State University</h3>
+          <span>Issued Mar 2026 | Credential ID: BMIMCLU0WZEO</span>
         </div>
       </div>
     </section>
@@ -1194,22 +1257,16 @@
     <section class="reveal parallax" data-speed="0.08">
       <div class="split">
         <div class="card tilt-card">
-          <h2 class="section-title lang-en">What I’m Building Toward</h2>
-          <h2 class="section-title lang-fr">Ce que je vise</h2>
-          <p class="section-sub lang-en">
+          <h2 class="section-title">What I'm Building Toward</h2>
+          <p class="section-sub">
             I want this portfolio to help me access internships, freelance opportunities, jobs,
             networking, and future academic growth. My goal is to connect strong software foundations
             with real cybersecurity capability.
           </p>
-          <p class="section-sub lang-fr">
-            Je veux que ce portfolio m’aide à accéder à des stages, à des opportunités freelance,
-            à des emplois, au networking et à une progression académique future.
-          </p>
         </div>
 
         <div class="card tilt-card">
-          <h2 class="section-title lang-en">Extras</h2>
-          <h2 class="section-title lang-fr">Extras</h2>
+          <h2 class="section-title">Extras</h2>
           <div class="chips">
             <span class="chip">About</span>
             <span class="chip">Skills</span>
@@ -1220,15 +1277,13 @@
             <span class="chip">CTF Writeups</span>
             <span class="chip">Resume Download</span>
             <span class="chip">Testimonials</span>
-            <span class="chip">Languages</span>
           </div>
         </div>
       </div>
     </section>
 
     <section id="contact" class="reveal parallax" data-speed="0.12">
-      <h2 class="section-title lang-en">Contact</h2>
-      <h2 class="section-title lang-fr">Contact</h2>
+      <h2 class="section-title">Contact</h2>
 
       <div class="contact-grid">
         <div class="card tilt-card">
@@ -1246,17 +1301,11 @@
       </div>
     </section>
   </main>
-
   <footer></footer>
 
   <script>
-    let french = false;
-    function toggleLang(){
-      french = !french;
-      document.querySelectorAll('.lang-en').forEach(el => el.style.display = french ? 'none' : '');
-      document.querySelectorAll('.lang-fr').forEach(el => el.style.display = french ? '' : 'none');
-    }
-
+    const hasFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    const isPhoneViewport = window.matchMedia("(max-width: 640px)").matches;
     const terminalLines = [
       "[BOOT] Initializing red interface...",
       "[SYS] Loading encrypted identity modules...",
@@ -1369,7 +1418,7 @@
         } else if(cmd === 'cv'){
           appendConsole("CV module ready. Replace this with your CV PDF link later.");
         } else if(cmd === 'projects'){
-          appendConsole("Projects:\\n1. Gestion de Bibliothèque\\n2. Cyber Labs\\n3. Security Writeups");
+          appendConsole("Projects:\\n1. Library Management System\\n2. Cyber Labs\\n3. Security Writeups");
           document.getElementById('projects').scrollIntoView({behavior:'smooth'});
         } else if(cmd === 'contact'){
           appendConsole("Email: hamzazniber100@hotmail.com\\nGitHub: github.com/SileHam\\nLinkedIn: linkedin.com/in/hamza-zniber");
@@ -1385,69 +1434,75 @@
     });
 
     const cards = document.querySelectorAll('.tilt-card');
-    cards.forEach(card => {
-      card.addEventListener('mousemove', e => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const midX = rect.width / 2;
-        const midY = rect.height / 2;
-        const rotateX = ((y - midY) / midY) * -8;
-        const rotateY = ((x - midX) / midX) * 8;
-        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+    if (hasFinePointer) {
+      cards.forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const midX = rect.width / 2;
+          const midY = rect.height / 2;
+          const rotateX = ((y - midY) / midY) * -8;
+          const rotateY = ((x - midX) / midX) * 8;
+          card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'rotateX(0deg) rotateY(0deg) translateY(0)';
+        });
       });
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = 'rotateX(0deg) rotateY(0deg) translateY(0)';
-      });
-    });
+    }
 
-    window.addEventListener('scroll', () => {
-      const scrollY = window.scrollY;
-      document.querySelectorAll('.parallax').forEach(el => {
-        const speed = parseFloat(el.dataset.speed || 0.1);
-        el.style.transform = `translateY(${scrollY * speed * -0.15}px)`;
+    if (!isPhoneViewport) {
+      window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+        document.querySelectorAll('.parallax').forEach(el => {
+          const speed = parseFloat(el.dataset.speed || 0.1);
+          el.style.transform = `translateY(${scrollY * speed * -0.15}px)`;
+        });
       });
-    });
+    }
 
     const cursorDot = document.getElementById('cursorDot');
     const cursorRing = document.getElementById('cursorRing');
     let ringX = window.innerWidth / 2, ringY = window.innerHeight / 2;
     let mouseX = ringX, mouseY = ringY;
 
-    window.addEventListener('mousemove', e => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      cursorDot.style.left = mouseX + 'px';
-      cursorDot.style.top = mouseY + 'px';
+    if (hasFinePointer) {
+      window.addEventListener('mousemove', e => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        cursorDot.style.left = mouseX + 'px';
+        cursorDot.style.top = mouseY + 'px';
 
-      const trail = document.createElement('div');
-      trail.className = 'trail';
-      trail.style.left = mouseX + 'px';
-      trail.style.top = mouseY + 'px';
-      document.body.appendChild(trail);
-      setTimeout(() => trail.remove(), 600);
-    });
+        const trail = document.createElement('div');
+        trail.className = 'trail';
+        trail.style.left = mouseX + 'px';
+        trail.style.top = mouseY + 'px';
+        document.body.appendChild(trail);
+        setTimeout(() => trail.remove(), 600);
+      });
 
-    function animateCursor(){
-      ringX += (mouseX - ringX) * 0.16;
-      ringY += (mouseY - ringY) * 0.16;
-      cursorRing.style.left = ringX + 'px';
-      cursorRing.style.top = ringY + 'px';
-      requestAnimationFrame(animateCursor);
+      function animateCursor(){
+        ringX += (mouseX - ringX) * 0.16;
+        ringY += (mouseY - ringY) * 0.16;
+        cursorRing.style.left = ringX + 'px';
+        cursorRing.style.top = ringY + 'px';
+        requestAnimationFrame(animateCursor);
+      }
+
+      animateCursor();
+
+      document.querySelectorAll('a, button, .card, .console-input').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          cursorRing.style.width = '48px';
+          cursorRing.style.height = '48px';
+        });
+        el.addEventListener('mouseleave', () => {
+          cursorRing.style.width = '34px';
+          cursorRing.style.height = '34px';
+        });
+      });
     }
-    animateCursor();
-
-    document.querySelectorAll('a, button, .card, .console-input').forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursorRing.style.width = '48px';
-        cursorRing.style.height = '48px';
-      });
-      el.addEventListener('mouseleave', () => {
-        cursorRing.style.width = '34px';
-        cursorRing.style.height = '34px';
-      });
-    });
-
     const matrixCanvas = document.getElementById("matrixCanvas");
     const mtx = matrixCanvas.getContext("2d");
     let drops = [];
@@ -1550,3 +1605,4 @@
   </script>
 </body>
 </html>
+
