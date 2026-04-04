@@ -727,6 +727,17 @@
       font-weight:700;
     }
 
+    .project-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .project-actions .open-modal{
+      margin-top:0;
+    }
+
     .profile-card{
       padding:20px;
       display:flex;
@@ -1199,7 +1210,10 @@
             <span class="chip">Port Scanning</span>
             <span class="chip">Dashboard</span>
           </div>
-          <a href="#" class="open-modal" onclick="openProject('HAMZA // NIGHTTRACE', 'HAMZA // NIGHTTRACE is a Python-based TCP reconnaissance tool built to scan hosts and subnets, detect open ports, identify likely services, generate OS hints, and review results through a live dashboard. It reflects hands-on work in network reconnaissance, service analysis, and practical security tooling.', ['Python','TCP Recon','Port Scanning','Service Detection','OS Hints','Live Dashboard']); return false;">Open Project</a>
+          <div class="project-actions">
+            <a href="#" class="open-modal" onclick="openProject('HAMZA // NIGHTTRACE', 'HAMZA // NIGHTTRACE is a Python-based TCP reconnaissance tool built to scan hosts and subnets, detect open ports, identify likely services, generate OS hints, and review results through a live dashboard. It reflects hands-on work in network reconnaissance, service analysis, and practical security tooling.', ['Python','TCP Recon','Port Scanning','Service Detection','OS Hints','Live Dashboard']); return false;">Open Project</a>
+            <a href="https://github.com/SileHam/hamza-nighttrace" class="open-modal" target="_blank" rel="noopener noreferrer">View Repo</a>
+          </div>
         </div>
 
         <div class="card tilt-card">
