@@ -592,6 +592,167 @@
       gap:18px;
     }
 
+    .contact-shell{
+      position:relative;
+      padding:44px clamp(22px,5vw,48px);
+      border-radius:30px;
+      overflow:hidden;
+      text-align:center;
+      background:
+        radial-gradient(circle at top center, rgba(78,161,255,.12), transparent 36%),
+        radial-gradient(circle at bottom left, rgba(255,60,60,.14), transparent 30%),
+        linear-gradient(180deg, rgba(10,12,18,.92), rgba(6,8,12,.98));
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow:0 20px 60px rgba(0,0,0,.28);
+    }
+
+    .contact-shell::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size:34px 34px;
+      mask-image:linear-gradient(180deg, rgba(0,0,0,.7), transparent 94%);
+      opacity:.22;
+      pointer-events:none;
+    }
+
+    .contact-shell::after{
+      content:"";
+      position:absolute;
+      inset:18px;
+      border-radius:24px;
+      border:1px solid rgba(255,255,255,.05);
+      pointer-events:none;
+    }
+
+    .contact-eyebrow{
+      position:relative;
+      z-index:1;
+      display:inline-block;
+      margin-bottom:14px;
+      padding:8px 14px;
+      border-radius:999px;
+      border:1px solid rgba(78,161,255,.22);
+      background:rgba(78,161,255,.08);
+      color:var(--blue);
+      font-size:.78rem;
+      font-weight:800;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+    }
+
+    .contact-title{
+      position:relative;
+      z-index:1;
+      max-width:780px;
+      margin:0 auto;
+      font-size:clamp(1.9rem,4.4vw,3rem);
+      line-height:1.08;
+      letter-spacing:-.04em;
+    }
+
+    .contact-text{
+      position:relative;
+      z-index:1;
+      max-width:720px;
+      margin:18px auto 0;
+      color:var(--muted);
+      line-height:1.8;
+      font-size:1rem;
+    }
+
+    .contact-actions{
+      position:relative;
+      z-index:1;
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:16px;
+      margin-top:30px;
+    }
+
+    .contact-action{
+      display:inline-flex;
+      align-items:stretch;
+      min-width:min(100%, 280px);
+      border-radius:20px;
+      overflow:hidden;
+      text-decoration:none;
+      border:1px solid rgba(255,60,60,.18);
+      background:linear-gradient(90deg, rgba(255,60,60,.12), rgba(78,161,255,.14));
+      box-shadow:0 0 24px rgba(255,60,60,.08);
+      transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+    }
+
+    .contact-action:hover{
+      transform:translateY(-4px);
+      border-color:rgba(78,161,255,.34);
+      box-shadow:
+        0 18px 28px rgba(0,0,0,.24),
+        0 0 32px rgba(255,60,60,.14);
+    }
+
+    .contact-action-icon{
+      position:relative;
+      width:74px;
+      display:grid;
+      place-items:center;
+      background:rgba(5,8,12,.94);
+      color:var(--red);
+      flex:none;
+    }
+
+    .contact-action-icon::after{
+      content:"";
+      position:absolute;
+      top:50%;
+      right:-14px;
+      transform:translateY(-50%);
+      border:14px solid transparent;
+      border-left-color:rgba(5,8,12,.94);
+    }
+
+    .contact-action-copy{
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:flex-start;
+      gap:3px;
+      min-height:74px;
+      padding:0 24px 0 28px;
+      color:var(--text);
+      font-weight:800;
+    }
+
+    .contact-action-copy span{
+      color:var(--muted);
+      font-size:.88rem;
+      font-weight:600;
+      letter-spacing:.04em;
+    }
+
+    .contact-notes{
+      position:relative;
+      z-index:1;
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:10px;
+      margin-top:24px;
+    }
+
+    .contact-note{
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.03);
+      color:var(--muted);
+      font-size:.88rem;
+    }
+
     .project-link{
       color:var(--red);
       text-decoration:none;
@@ -599,11 +760,169 @@
     }
 
 
-    footer{
-      padding:24px 20px 40px;
+    footer.site-footer{
+      position:relative;
+      margin-top:48px;
+      padding:44px 20px 24px;
       border-top:1px solid rgba(255,255,255,.06);
-      text-align:center;
+      background:
+        linear-gradient(180deg, rgba(6,7,11,.2), rgba(6,8,12,.95) 12%),
+        linear-gradient(180deg, #05070b 0%, #090b11 100%);
       color:var(--muted);
+      overflow:hidden;
+    }
+
+    footer.site-footer::before{
+      content:"";
+      position:absolute;
+      inset:-20% 0 auto;
+      height:220px;
+      background:
+        radial-gradient(circle at 14% 0%, rgba(255,60,60,.16), transparent 36%),
+        radial-gradient(circle at 86% 0%, rgba(78,161,255,.14), transparent 30%);
+      pointer-events:none;
+    }
+
+    .footer-inner{
+      position:relative;
+      z-index:1;
+      max-width:1220px;
+      margin:auto;
+    }
+
+    .footer-grid{
+      display:grid;
+      grid-template-columns:minmax(0,1.35fr) repeat(2,minmax(160px,.65fr));
+      gap:28px;
+      align-items:start;
+    }
+
+    .footer-brand{
+      display:grid;
+      gap:18px;
+      max-width:520px;
+    }
+
+    .footer-mark{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      text-decoration:none;
+      color:var(--text);
+    }
+
+    .footer-mark-core{
+      position:relative;
+      width:62px;
+      height:62px;
+      border-radius:18px;
+      display:grid;
+      place-items:center;
+      font-size:1.12rem;
+      font-weight:900;
+      letter-spacing:.08em;
+      color:var(--text);
+      background:
+        linear-gradient(160deg, rgba(255,60,60,.18), rgba(78,161,255,.12)),
+        rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.06),
+        0 0 26px rgba(255,60,60,.12);
+    }
+
+    .footer-mark-core::after{
+      content:"//";
+      position:absolute;
+      right:9px;
+      bottom:8px;
+      font-size:.55rem;
+      letter-spacing:.08em;
+      color:var(--blue);
+      opacity:.85;
+    }
+
+    .footer-mark-text strong{
+      display:block;
+      font-size:clamp(1.5rem,3vw,2.25rem);
+      line-height:1;
+      letter-spacing:-.04em;
+    }
+
+    .footer-mark-text span{
+      display:block;
+      margin-top:6px;
+      color:var(--muted);
+      font-size:.92rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    .footer-brand p{
+      color:var(--muted);
+      line-height:1.8;
+      max-width:520px;
+    }
+
+    .footer-socials{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .footer-social{
+      width:46px;
+      height:46px;
+      display:grid;
+      place-items:center;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.03);
+      color:var(--text);
+      text-decoration:none;
+      transition:transform .22s ease, border-color .22s ease, box-shadow .22s ease, color .22s ease;
+    }
+
+    .footer-social:hover{
+      transform:translateY(-3px);
+      color:var(--red);
+      border-color:rgba(255,60,60,.26);
+      box-shadow:0 0 22px rgba(255,60,60,.12);
+    }
+
+    .footer-column h3{
+      margin-bottom:16px;
+      color:var(--text);
+      font-size:.9rem;
+      font-weight:900;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+    }
+
+    .footer-column a{
+      display:block;
+      width:max-content;
+      max-width:100%;
+      margin-bottom:12px;
+      color:var(--muted);
+      text-decoration:none;
+      transition:transform .2s ease, color .2s ease;
+    }
+
+    .footer-column a:hover{
+      transform:translateX(4px);
+      color:var(--text);
+    }
+
+    .footer-meta{
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:30px;
+      padding-top:18px;
+      border-top:1px solid rgba(255,255,255,.06);
+      font-size:.9rem;
     }
 
     .reveal{
@@ -917,6 +1236,15 @@
       .console-input-line{
         flex-wrap:wrap;
       }
+      .contact-action{
+        flex:1 1 calc(50% - 8px);
+      }
+      .footer-grid{
+        grid-template-columns:1fr 1fr;
+      }
+      .footer-brand{
+        grid-column:1/-1;
+      }
     }
 
     @media (max-width:640px){
@@ -990,6 +1318,34 @@
       }
       .profile-photo-wrap{
         min-height:300px;
+      }
+      .contact-shell{
+        padding:30px 18px;
+        border-radius:22px;
+      }
+      .contact-actions{
+        gap:12px;
+      }
+      .contact-action{
+        width:100%;
+        min-width:0;
+      }
+      .contact-action-icon{
+        width:64px;
+      }
+      .contact-action-copy{
+        min-height:64px;
+        padding:0 16px 0 22px;
+      }
+      .footer-grid{
+        grid-template-columns:1fr;
+        gap:24px;
+      }
+      .footer-mark{
+        align-items:flex-start;
+      }
+      .footer-meta{
+        font-size:.84rem;
       }
       .profile-badge{
         left:12px;
@@ -1090,8 +1446,8 @@
         <div class="hero-cta">
           <a class="btn btn-primary" href="#projects">Explore My Work</a>
           <a class="btn btn-secondary" href="mailto:hamzazniber100@hotmail.com">Email Me</a>
-          <a class="btn btn-secondary" href="https://github.com/SileHam" target="_blank">GitHub</a>
-          <a class="btn btn-secondary" href="https://www.linkedin.com/in/hamza-zniber/" target="_blank">LinkedIn</a>
+          <a class="btn btn-secondary" href="https://github.com/SileHam" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a class="btn btn-secondary" href="https://www.linkedin.com/in/hamza-zniber/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </div>
       </div>
 
@@ -1314,25 +1670,108 @@
     </section>
 
     <section id="contact" class="reveal parallax" data-speed="0.12">
-      <h2 class="section-title">Contact</h2>
+      <div class="contact-shell">
+        <span class="contact-eyebrow">Contact</span>
+        <h2 class="contact-title">Let's talk security, software, and the work that makes both stronger.</h2>
+        <p class="contact-text">
+          If you are looking for someone who is serious about backend systems, cybersecurity growth,
+          and hands-on execution, reach out. I am open to internships, technical collaborations, and
+          conversations around blue-team and security engineering paths.
+        </p>
 
-      <div class="contact-grid">
-        <div class="card tilt-card">
-          <h3>Email</h3>
-          <p><a class="project-link" href="mailto:hamzazniber100@hotmail.com">hamzazniber100@hotmail.com</a></p>
+        <div class="contact-actions">
+          <a class="contact-action" href="https://www.linkedin.com/in/hamza-zniber/" target="_blank" rel="noopener noreferrer">
+            <span class="contact-action-icon" aria-hidden="true">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19ZM18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 12.92 11.24V10.13H10.13V18.5H12.92V13.57C12.92 12.8 13.54 12.17 14.31 12.17C15.08 12.17 15.71 12.8 15.71 13.57V18.5H18.5ZM8.27 18.5V10.13H5.5V18.5H8.27ZM6.88 8.56C7.81 8.56 8.56 7.81 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19C5.95 5.19 5.19 5.95 5.19 6.88C5.19 7.81 5.95 8.56 6.88 8.56Z"/>
+              </svg>
+            </span>
+            <span class="contact-action-copy">
+              LinkedIn
+              <span>Connect with me professionally</span>
+            </span>
+          </a>
+
+          <a class="contact-action" href="mailto:hamzazniber100@hotmail.com">
+            <span class="contact-action-icon" aria-hidden="true">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 4A2 2 0 0 1 22 6V18A2 2 0 0 1 20 20H4A2 2 0 0 1 2 18V6A2 2 0 0 1 4 4H20ZM20 8.24L12.28 13.4C12.11 13.51 11.89 13.51 11.72 13.4L4 8.24V18H20V8.24ZM19.52 6H4.48L12 11.02L19.52 6Z"/>
+              </svg>
+            </span>
+            <span class="contact-action-copy">
+              Mail
+              <span>Send a direct message</span>
+            </span>
+          </a>
         </div>
-        <div class="card tilt-card">
-          <h3>LinkedIn</h3>
-          <p><a class="project-link" href="https://www.linkedin.com/in/hamza-zniber/" target="_blank">hamza-zniber</a></p>
-        </div>
-        <div class="card tilt-card">
-          <h3>GitHub</h3>
-          <p><a class="project-link" href="https://github.com/SileHam" target="_blank">SileHam</a></p>
+
+        <div class="contact-notes">
+          <span class="contact-note">Casablanca, Morocco</span>
+          <span class="contact-note">GitHub: github.com/SileHam</span>
+          <span class="contact-note">Open to internships and collaborations</span>
         </div>
       </div>
     </section>
   </main>
-  <footer></footer>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="footer-mark" href="#">
+            <span class="footer-mark-core">HZ</span>
+            <span class="footer-mark-text">
+              <strong>Hamza Zniber</strong>
+              <span>Cyber Security Engineer Path</span>
+            </span>
+          </a>
+
+          <p>
+            Personal portfolio focused on cybersecurity growth, backend engineering discipline, and
+            practical tooling. Built to show work clearly, not just list interests.
+          </p>
+
+          <div class="footer-socials">
+            <a class="footer-social" href="https://www.linkedin.com/in/hamza-zniber/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19ZM18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 12.92 11.24V10.13H10.13V18.5H12.92V13.57C12.92 12.8 13.54 12.17 14.31 12.17C15.08 12.17 15.71 12.8 15.71 13.57V18.5H18.5ZM8.27 18.5V10.13H5.5V18.5H8.27ZM6.88 8.56C7.81 8.56 8.56 7.81 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19C5.95 5.19 5.19 5.95 5.19 6.88C5.19 7.81 5.95 8.56 6.88 8.56Z"/>
+              </svg>
+            </a>
+            <a class="footer-social" href="mailto:hamzazniber100@hotmail.com" aria-label="Mail">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 4A2 2 0 0 1 22 6V18A2 2 0 0 1 20 20H4A2 2 0 0 1 2 18V6A2 2 0 0 1 4 4H20ZM20 8.24L12.28 13.4C12.11 13.51 11.89 13.51 11.72 13.4L4 8.24V18H20V8.24ZM19.52 6H4.48L12 11.02L19.52 6Z"/>
+              </svg>
+            </a>
+            <a class="footer-social" href="https://github.com/SileHam" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 .5C5.65.5.5 5.66.5 12.03C.5 17.13 3.8 21.45 8.38 22.98C8.95 23.09 9.16 22.74 9.16 22.43C9.16 22.15 9.15 21.23 9.15 20.26C5.99 20.95 5.32 18.73 5.32 18.73C4.8 17.4 4.05 17.05 4.05 17.05C3.02 16.34 4.13 16.35 4.13 16.35C5.27 16.43 5.87 17.53 5.87 17.53C6.88 19.26 8.52 18.76 9.18 18.47C9.28 17.74 9.57 17.24 9.89 16.95C7.37 16.66 4.72 15.69 4.72 11.38C4.72 10.15 5.16 9.15 5.88 8.37C5.77 8.08 5.38 6.91 5.99 5.32C5.99 5.32 6.96 5 9.14 6.47C10.07 6.22 11.07 6.09 12.07 6.09C13.07 6.09 14.07 6.22 15 6.47C17.18 5 18.15 5.32 18.15 5.32C18.76 6.91 18.37 8.08 18.26 8.37C18.99 9.15 19.42 10.15 19.42 11.38C19.42 15.7 16.76 16.66 14.24 16.95C14.65 17.31 15.02 18.03 15.02 19.14C15.02 20.74 15 22.03 15 22.43C15 22.74 15.21 23.1 15.79 22.98C20.36 21.45 23.66 17.13 23.66 12.03C23.66 5.66 18.51.5 12 .5Z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-column">
+          <h3>Highlights</h3>
+          <a href="#projects">Selected Projects</a>
+          <a href="#certifications">Certifications</a>
+          <a href="#skills">Security & Development Skills</a>
+          <a href="#console">Interactive Console</a>
+        </div>
+
+        <div class="footer-column">
+          <h3>Menu</h3>
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+
+      <div class="footer-meta">
+        <span>&copy; 2026 Hamza Zniber. All rights reserved.</span>
+        <span>Built in Casablanca, Morocco.</span>
+      </div>
+    </div>
+  </footer>
 
   <script>
     const hasFinePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
