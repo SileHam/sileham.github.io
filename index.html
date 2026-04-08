@@ -500,6 +500,57 @@
       margin-bottom:24px;
     }
 
+    .portfolio-lead{
+      color:var(--muted);
+      line-height:1.8;
+      margin-bottom:16px;
+    }
+
+    .portfolio-list{
+      list-style:none;
+      display:grid;
+      gap:12px;
+    }
+
+    .portfolio-list li{
+      position:relative;
+      padding-left:18px;
+      color:var(--muted);
+      line-height:1.7;
+    }
+
+    .portfolio-list li::before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:.72em;
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:linear-gradient(180deg, var(--red), var(--blue));
+      box-shadow:0 0 14px rgba(255,60,60,.25);
+      transform:translateY(-50%);
+    }
+
+    .portfolio-cards{
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      margin-top:18px;
+    }
+
+    .portfolio-note{
+      margin-top:18px;
+      padding:16px 18px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.03);
+      color:var(--muted);
+      line-height:1.7;
+    }
+
+    .portfolio-note strong{
+      color:var(--text);
+    }
+
     .cards{
       display:grid;
       grid-template-columns:repeat(3,minmax(0,1fr));
@@ -1427,6 +1478,7 @@
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
         <a href="#projects">Projects</a>
+        <a href="#portfolio">Portfolio</a>
         <a href="#console">Console</a>
         <a href="#contact">Contact</a>
       </div>
@@ -1582,8 +1634,8 @@
         <div class="card tilt-card">
           <h3>Cybersecurity Portfolio Website</h3>
           <p>
-            Designed and built a personal portfolio interface to present projects, certifications, and
-            contact channels with a focused cybersecurity identity.
+            Designed and built a Git-based portfolio interface to present projects, certifications, and
+            documented cybersecurity growth in a format that is easy to share with recruiters.
           </p>
           <div class="chips">
             <span class="chip">HTML</span>
@@ -1592,11 +1644,110 @@
             <span class="chip">Personal Branding</span>
           </div>
           <div class="project-actions">
-            <a href="#" class="open-modal" onclick="openProject('Cybersecurity Portfolio Website', 'Built and iterated on a personal portfolio website to present technical projects, certifications, and contact information with a clear cybersecurity identity. The work focused on front-end structure, responsive layout, and turning raw experience into a more credible professional profile.', ['HTML','CSS','JavaScript','Responsive Layout','Branding']); return false;">View Case Study</a>
+            <a href="#" class="open-modal" onclick="openProject('Cybersecurity Portfolio Website', 'Built and iterated on a Git-based personal portfolio website to present technical projects, certifications, and structured cybersecurity evidence in one place. The work focused on front-end structure, responsive layout, and turning ongoing learning into a professional profile that is easier for recruiters to review.', ['HTML','CSS','JavaScript','Responsive Layout','Branding']); return false;">View Case Study</a>
             <a href="https://github.com/SileHam/sileham.github.io" class="open-modal" target="_blank" rel="noopener noreferrer">View Repo</a>
           </div>
         </div>
       </div>
+    </section>
+
+    <section id="portfolio" class="reveal parallax" data-speed="0.13">
+      <h2 class="section-title">Portfolio Roadmap</h2>
+
+      <p class="section-sub">
+        This site is being shaped as a professional cybersecurity portfolio, not only a resume. The goal
+        is to show how I learn, document, and apply security concepts through projects, labs, notes, and
+        technical evidence that can be reviewed by recruiters and hiring teams.
+      </p>
+
+      <div class="split">
+        <div class="side-card tilt-card">
+          <h3>What This Portfolio Shows</h3>
+          <p class="portfolio-lead">
+            A cybersecurity portfolio should demonstrate education, skills, knowledge, and genuine
+            commitment to the field. It gives more depth than a one-page resume by connecting claims to
+            actual work.
+          </p>
+          <ul class="portfolio-list">
+            <li>Hands-on evidence of security learning instead of only stated interests.</li>
+            <li>Documented projects, screenshots, and write-ups that explain how I approached problems.</li>
+            <li>Clear organization so recruiters can review technical growth quickly.</li>
+          </ul>
+        </div>
+
+        <div class="side-card tilt-card">
+          <h3>Why I Chose a Git-Based Portfolio</h3>
+          <p class="portfolio-lead">
+            The certificate guidance highlights document folders, cloud storage, Google Sites, and Git
+            repositories. I chose a Git-based portfolio because it lets me publish with Markdown, connect
+            directly to code repositories, and keep a visible record of iteration.
+          </p>
+          <div class="stat"><span>Primary format</span><strong>GitHub repository + portfolio website</strong></div>
+          <div class="stat"><span>Supporting files</span><strong>Resume, screenshots, lab notes, case studies</strong></div>
+          <div class="stat"><span>Alternative formats</span><strong>Docs folder, Drive, Dropbox, Google Sites</strong></div>
+          <div class="stat"><span>Publishing rule</span><strong>Only non-sensitive, shareable material</strong></div>
+        </div>
+      </div>
+
+      <div class="cards portfolio-cards">
+        <div class="card tilt-card">
+          <h3>Professional Identity</h3>
+          <p>
+            Build the materials that explain who I am, what I am targeting, and how my technical work
+            supports that direction.
+          </p>
+          <div class="chips">
+            <span class="chip">Professional Statement</span>
+            <span class="chip">Resume</span>
+            <span class="chip">Career Positioning</span>
+          </div>
+        </div>
+
+        <div class="card tilt-card">
+          <h3>Audit & Risk Work</h3>
+          <p>
+            Document assessments that show how I review environments, identify issues, and communicate
+            practical security findings.
+          </p>
+          <div class="chips">
+            <span class="chip">Security Audit</span>
+            <span class="chip">Vulnerability Review</span>
+            <span class="chip">Small Business Scenario</span>
+          </div>
+        </div>
+
+        <div class="card tilt-card">
+          <h3>System Analysis</h3>
+          <p>
+            Capture evidence of how I analyze network structure, security controls, and incident context
+            from a defender's perspective.
+          </p>
+          <div class="chips">
+            <span class="chip">Network Analysis</span>
+            <span class="chip">Security Architecture</span>
+            <span class="chip">Incident Handler Journal</span>
+          </div>
+        </div>
+
+        <div class="card tilt-card">
+          <h3>Technical Labs</h3>
+          <p>
+            Include practical exercises that prove I can work directly with operating systems, data, and
+            investigation-oriented workflows.
+          </p>
+          <div class="chips">
+            <span class="chip">Linux Permissions</span>
+            <span class="chip">SQL Filtering</span>
+            <span class="chip">Text File Parsing</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="portfolio-note">
+        <strong>Portfolio standard:</strong> private, copyrighted, or proprietary material stays out of
+        this site. Only finalized, shareable work products, screenshots, and notes belong in the public
+        version of the portfolio.
+      </p>
     </section>
 
     <section id="console" class="reveal parallax" data-speed="0.09">
@@ -1621,9 +1772,35 @@
     <section id="certifications" class="reveal parallax" data-speed="0.11">
       <h2 class="section-title">Certifications</h2>
 
+      <p class="section-sub">
+        Selected certifications are listed below. The most current certification list is also available
+        on my LinkedIn profile as I continue adding new course completions and credentials.
+      </p>
+
       <div class="timeline">
         <div class="timeline-item">
-          <h3>Object-Oriented Programming in C++ - EPFL</h3>
+          <h3>Foundations of Cybersecurity - Google</h3>
+          <span>Issued Apr 2026 | Credential ID: XZQ8R4MSAHP2</span>
+          <p>Built core cybersecurity foundations around SIEM, information assurance, threat awareness, and security operations concepts.</p>
+        </div>
+        <div class="timeline-item">
+          <h3>Software Engineering: Software Design and Project Management - The Hong Kong University of Science and Technology</h3>
+          <span>Issued Apr 2026 | Credential ID: D2APYDJB5CXV</span>
+          <p>Strengthened software engineering discipline through project planning, UML-based design, and structured development management practices.</p>
+        </div>
+        <div class="timeline-item">
+          <h3>Certified Ethical Hacker (CEH): Unit 4 - Pearson</h3>
+          <span>Issued Apr 2026 | Credential ID: 6BQA9DYZBRYE</span>
+          <p>Focused on ethical hacking foundations with exposure to cyber threat intelligence, security-related human factors, and attacker-defender thinking.</p>
+        </div>
+        <div class="timeline-item">
+          <h3>The Foundations of Cybersecurity - Kennesaw State University</h3>
+          <span>Issued Mar 2026 | Credential ID: BMIMCLU0WZEO</span>
+          <p>Focused on essential cybersecurity terminology, common threat types, vulnerabilities, and foundational security controls.</p>
+          <p><a class="project-link" href="https://www.coursera.org/learn/foundations-cybersecurity" target="_blank" rel="noopener noreferrer">Official course page</a></p>
+        </div>
+        <div class="timeline-item">
+          <h3>Introduction à la programmation orientée objet (en C++) - EPFL</h3>
           <span>Issued Dec 2025 | Credential ID: E4AC9MM87BDW</span>
           <p>Covered core object-oriented design concepts in C++, including encapsulation, inheritance, and polymorphism.</p>
           <p><a class="project-link" href="https://graphsearch.epfl.ch/en/mooc/M-CPP2" target="_blank" rel="noopener noreferrer">EPFL course listing</a></p>
@@ -1634,12 +1811,10 @@
           <p>Strengthened front-end fundamentals through DOM manipulation, jQuery workflows, and JSON-based data exchange.</p>
           <p><a class="project-link" href="https://www.coursera.org/learn/javascript-jquery-json" target="_blank" rel="noopener noreferrer">Official course page</a></p>
         </div>
-        <div class="timeline-item">
-          <h3>The Foundations of Cybersecurity - Kennesaw State University</h3>
-          <span>Issued Mar 2026 | Credential ID: BMIMCLU0WZEO</span>
-          <p>Focused on essential cybersecurity terminology, common threat types, vulnerabilities, and foundational security controls.</p>
-          <p><a class="project-link" href="https://www.coursera.org/learn/foundations-cybersecurity" target="_blank" rel="noopener noreferrer">Official course page</a></p>
-        </div>
+      </div>
+
+      <div class="hero-cta">
+        <a class="btn btn-secondary" href="https://www.linkedin.com/in/hamza-zniber/" target="_blank" rel="noopener noreferrer">View Latest Certifications on LinkedIn</a>
       </div>
     </section>
 
@@ -1752,6 +1927,7 @@
         <div class="footer-column">
           <h3>Highlights</h3>
           <a href="#projects">Selected Projects</a>
+          <a href="#portfolio">Portfolio Roadmap</a>
           <a href="#certifications">Certifications</a>
           <a href="#skills">Security & Development Skills</a>
           <a href="#console">Interactive Console</a>
@@ -1762,6 +1938,7 @@
           <a href="#about">About</a>
           <a href="#skills">Skills</a>
           <a href="#projects">Projects</a>
+          <a href="#portfolio">Portfolio</a>
           <a href="#contact">Contact</a>
         </div>
       </div>
@@ -1884,12 +2061,15 @@
         appendConsole("\\n> " + cmd);
 
         if(cmd === 'help'){
-          appendConsole("Available commands:\\n- help\\n- cv\\n- projects\\n- contact\\n- clear");
+          appendConsole("Available commands:\\n- help\\n- cv\\n- projects\\n- portfolio\\n- contact\\n- clear");
         } else if(cmd === 'cv'){
           appendConsole("Resume is available on request. Please contact me by email or LinkedIn.");
         } else if(cmd === 'projects'){
           appendConsole("Projects:\\n1. Library Management System\\n2. NIGHTTRACE\\n3. Cybersecurity Portfolio Website");
           document.getElementById('projects').scrollIntoView({behavior:'smooth'});
+        } else if(cmd === 'portfolio'){
+          appendConsole("Portfolio roadmap:\\n- Professional Statement\\n- Security Audit\\n- Network Analysis\\n- Linux Permissions\\n- SQL Filtering\\n- Incident Journal\\n- Text Parsing\\n- Resume");
+          document.getElementById('portfolio').scrollIntoView({behavior:'smooth'});
         } else if(cmd === 'contact'){
           appendConsole("Email: hamzazniber100@hotmail.com\\nGitHub: github.com/SileHam\\nLinkedIn: linkedin.com/in/hamza-zniber");
           document.getElementById('contact').scrollIntoView({behavior:'smooth'});
