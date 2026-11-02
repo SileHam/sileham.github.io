@@ -20,7 +20,7 @@ README.md                  Preview, content notes, checks, deployment
 
 There is no tracked deployment workflow, custom domain file, package manifest, or framework configuration. The branch is `main`; the Git remote remains `https://github.com/SileHam/sileham.github.io.git`. The public repository reports GitHub Pages enabled. Its exact publishing settings were not changed or independently verified.
 
-The current personal profile is [Hvma0](https://github.com/Hvma0). Hosting and the three existing project repositories remain under `SileHam`. Profile links use `Hvma0`; project links retain their actual repository owners. These accounts are not treated as interchangeable.
+The owner confirmed [SileHam](https://github.com/SileHam) as the GitHub account to use. Profile links, hosting and the existing project repositories use `SileHam`. The previously supplied `Hvma0` profile is no longer linked.
 
 ## Local preview
 

@@ -92,9 +92,9 @@ def check():
             errors.append('Missing or duplicated existing credential: ' + credential)
     if re.search(r'third.year|3rd.year', html, re.I):
         errors.append('Outdated student year')
-    if 'https://github.com/Hvma0' not in document.references:
+    if 'https://github.com/SileHam' not in document.references:
         errors.append('Missing current GitHub profile')
-    if 'https://github.com/SileHam' in document.references:
+    if 'https://github.com/Hvma0' in document.references:
         errors.append('Old GitHub profile remains')
     featured = html.split('id="featured"', 1)[1].split('</section>', 1)[0]
     if 'github.com' in featured or '<img' in featured:

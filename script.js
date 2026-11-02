@@ -71,7 +71,7 @@ const commands = {
   research: 'Current interests: machine learning, NLP, RAG, information retrieval and responsible AI.',
   projects: 'Projects:\n1. OCP industrial maintenance RAG assistant (prototype; private source)\n2. NIGHTTRACE\n3. Library Management System\n4. Cybersecurity Portfolio Website',
   portfolio: 'Learning roadmap (in progress):\nProfessional statement · resume · security audit · network analysis · Linux permissions · SQL filtering · vulnerability review · incident journal · text parsing',
-  contact: 'Email: hamzazniber100@hotmail.com\nGitHub: https://github.com/Hvma0\nLinkedIn: https://www.linkedin.com/in/hamza-zniber/'
+  contact: 'Email: hamzazniber100@hotmail.com\nGitHub: https://github.com/SileHam\nLinkedIn: https://www.linkedin.com/in/hamza-zniber/'
 };
 consoleInput.addEventListener('keydown', event => {
   if (event.key !== 'Enter') return;
