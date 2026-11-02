@@ -1,0 +1,4 @@
+# Local preview and verification output; never part of the public portfolio.
+.local/
+__pycache__/
+portfolio.server.*.log
